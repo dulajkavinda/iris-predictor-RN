@@ -68,7 +68,7 @@ export default class App extends Component {
         (response) => {
           console.log(response.data.Prediction);
           this.setState({ Prediction: response.data.Prediction });
-          Alert.alert(response.data.Prediction);
+          giAlert.alert(response.data.Prediction);
         },
         (error) => {
           console.log(error);
