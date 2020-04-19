@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, StyleSheet, Button } from "react-native";
+import { View, StyleSheet, Button, Text, Alert } from "react-native";
 import axios from "axios";
 
 import t from "tcomb-form-native";
@@ -45,37 +45,52 @@ const options = {
   },
   stylesheet: formStyles,
 };
-const formUrlEncoded = (x) =>
-  Object.keys(x).reduce((p, c) => p + `&${c}=${encodeURIComponent(x[c])}`, "");
 
 export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      Prediction: "",
+    };
+  }
+
   handleSubmit = () => {
     const value = this._form.getValue();
-    console.log("value: ", value.sepalWidth);
 
-    axios({
-      url: "https://iris-predict-duka.herokuapp.com/predict",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      data: formUrlEncoded({
+    axios
+      .post("https://iris-predict-duka.herokuapp.com/predict/", {
         sepal_length: value.sepalLenght,
         sepal_width: value.sepalWidth,
-        petal_lenght: value.petalLenght,
-        petalw_idth: value.petalWidth,
-      }),
-    })
-      .then(function (response) {
-        console.log(response.data);
+        petal_length: value.petalLength,
+        petal_width: value.petalWidth,
       })
-      .catch(function (error) {
-        console.log(error);
-      });
+      .then(
+        (response) => {
+          console.log(response.data.Prediction);
+          this.setState({ Prediction: response.data.Prediction });
+          Alert.alert(response.data.Prediction);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   };
 
   render() {
     return (
       <View style={styles.container}>
+        <View style={{ alignItems: "center", fontSize: 50, marginBottom: 30 }}>
+          <Text style={{ fontSize: 25, fontWeight: "800" }}>
+            Iris Flower Detector
+          </Text>
+        </View>
+
         <Form ref={(c) => (this._form = c)} type={Iris} options={options} />
-        <Button title="Process" onPress={this.handleSubmit} />
+        <Button
+          style={{ padding: 30, color: "red" }}
+          title="Process"
+          onPress={this.handleSubmit}
+        />
       </View>
     );
   }
@@ -84,7 +99,8 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
-    marginTop: 50,
+
+    marginTop: 10,
     padding: 20,
     backgroundColor: "#ffffff",
   },
