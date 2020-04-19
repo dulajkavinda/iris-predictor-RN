@@ -1,8 +1,19 @@
 import React, { Component } from "react";
-import { View, StyleSheet, Button, Text, Alert } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Button,
+  Text,
+  Alert,
+  ImageBackground,
+  TouchableOpacity,
+  Platform,
+} from "react-native";
 import axios from "axios";
 
 import t from "tcomb-form-native";
+
+const keyboardVerticalOffset = Platform.OS === "ios" ? 40 : 0;
 
 const Form = t.form.Form;
 
@@ -22,16 +33,16 @@ const formStyles = {
   },
   controlLabel: {
     normal: {
-      color: "blue",
+      color: "white",
       fontSize: 18,
-      marginBottom: 7,
-      fontWeight: "600",
+      marginBottom: 3,
+      fontWeight: "800",
     },
     // the style applied when a validation error occours
     error: {
       color: "red",
       fontSize: 18,
-      marginBottom: 7,
+      marginBottom: 3,
       fontWeight: "600",
     },
   },
@@ -68,7 +79,7 @@ export default class App extends Component {
         (response) => {
           console.log(response.data.Prediction);
           this.setState({ Prediction: response.data.Prediction });
-          giAlert.alert(response.data.Prediction);
+          Alert.alert(response.data.Prediction);
         },
         (error) => {
           console.log(error);
@@ -78,19 +89,40 @@ export default class App extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <View style={{ alignItems: "center", fontSize: 50, marginBottom: 30 }}>
-          <Text style={{ fontSize: 25, fontWeight: "800" }}>
-            Iris Flower Detector
-          </Text>
-        </View>
+      <View style={{ flex: 1 }}>
+        <ImageBackground
+          resizeMode={"stretch"} // or cover
+          style={{ flex: 1 }} // must be passed from the parent, the number may vary depending upon your screen size
+          source={require("./assets/iris.jpg")}
+          imageStyle={{ opacity: 0.8 }}
+        >
+          <View style={styles.container}>
+            <View
+              style={{ alignItems: "center", fontSize: 50, marginBottom: 30 }}
+            >
+              <Text style={{ fontSize: 30, fontWeight: "800" }}>
+                Iris Flower Predictor
+              </Text>
+            </View>
+            <Form ref={(c) => (this._form = c)} type={Iris} options={options} />
 
-        <Form ref={(c) => (this._form = c)} type={Iris} options={options} />
-        <Button
-          style={{ padding: 30, color: "red" }}
-          title="Process"
-          onPress={this.handleSubmit}
-        />
+            <View style={{ alignItems: "center" }}>
+              <TouchableOpacity
+                style={{
+                  width: 200,
+                  height: 50,
+                  backgroundColor: "white",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderRadius: 10,
+                }}
+                onPress={this.handleSubmit}
+              >
+                <Text style={{ fontSize: 30 }}>Predict!</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </ImageBackground>
       </View>
     );
   }
@@ -99,9 +131,9 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
-
-    marginTop: 10,
+    backgroundColor: "rgba(255,0,0,0.5)",
+    marginTop: 0,
     padding: 20,
-    backgroundColor: "#ffffff",
+    backgroundColor: "transparent",
   },
 });
