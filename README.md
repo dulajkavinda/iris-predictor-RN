@@ -2,7 +2,7 @@
 
 Mobile Application to predict a flower species from the iris dataset. 
 
-![Image description]('https://raw.githubusercontent.com/dulajkavinda/iris-predictor-RN/master/assets/UI-2.PNG?token=ALKG4OSP3V22JGBIYYCHH3K6WNOJS')
+![Alt text](https://raw.githubusercontent.com/dulajkavinda/iris-predictor-RN/master/assets/UI-2.PNG?token=ALKG4OSP3V22JGBIYYCHH3K6WNOJS)
 
 ## Description
 
