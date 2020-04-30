@@ -2,8 +2,6 @@
 
 Mobile Application to predict a flower species from the iris dataset. 
 
-![Alt text](https://raw.githubusercontent.com/dulajkavinda/iris-predictor-RN/master/assets/UI-2.PNG?token=ALKG4OSP3V22JGBIYYCHH3K6WNOJS = 300x600)
-
 ## Description
 
 The dataset for this project originates from the UCI Machine Learning Repository. The Iris flower data set or Fisher's Iris data set is a multivariate data set introduced by the British statistician and biologist Ronald Fisher in his 1936 paper The use of multiple measurements in taxonomic problems as an example of linear discriminant analysis.
