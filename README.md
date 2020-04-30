@@ -1,4 +1,4 @@
-# Project Title
+# Iris Flower Predictor
 
 Mobile Application to predict a flower species from the iris dataset. 
 
